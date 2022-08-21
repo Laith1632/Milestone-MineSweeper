@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const flagsLeft = document.querySelector('#flags-left')
     const result = document.querySelector('#result')
     let width = 10
-    let bombAmount = 20
+    let bombAmount = 10
     let flags = 0
     let squares = []
     let isGameOver = false
@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //create Board
     function createBoard() {
       flagsLeft.innerHTML = bombAmount
-  
       //get shuffled game array with random bombs
       const bombsArray = Array(bombAmount).fill('bomb')
       const emptyArray = Array(width*width - bombAmount).fill('valid')
@@ -29,14 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
         square.addEventListener('click', function(e) {
           click(square)
         })
-  
+
         //cntrl and left click
         square.oncontextmenu = function(e) {
           e.preventDefault()
           addFlag(square)
         }
       }
-  
+      // force relaod page
+        document.querySelector("#reset").onclick = function(){
+            window.location.reload()
+        }
       //add numbers
       for (let i = 0; i < squares.length; i++) {
         let total = 0
@@ -109,49 +111,41 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         if (currentId > 0 && !isLeftEdge) {
           const newId = squares[parseInt(currentId) -1].id
-          //const newId = parseInt(currentId) - 1   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId > 9 && !isRightEdge) {
           const newId = squares[parseInt(currentId) +1 -width].id
-          //const newId = parseInt(currentId) +1 -width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId > 10) {
           const newId = squares[parseInt(currentId -width)].id
-          //const newId = parseInt(currentId) -width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId > 11 && !isLeftEdge) {
           const newId = squares[parseInt(currentId) -1 -width].id
-          //const newId = parseInt(currentId) -1 -width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId < 98 && !isRightEdge) {
           const newId = squares[parseInt(currentId) +1].id
-          //const newId = parseInt(currentId) +1   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId < 90 && !isLeftEdge) {
           const newId = squares[parseInt(currentId) -1 +width].id
-          //const newId = parseInt(currentId) -1 +width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId < 88 && !isRightEdge) {
           const newId = squares[parseInt(currentId) +1 +width].id
-          //const newId = parseInt(currentId) +1 +width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
         if (currentId < 89) {
           const newId = squares[parseInt(currentId) +width].id
-          //const newId = parseInt(currentId) +width   ....refactor
           const newSquare = document.getElementById(newId)
           click(newSquare)
         }
